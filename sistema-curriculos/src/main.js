@@ -1,7 +1,10 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router/index';
-import VueTheMask from 'vue-the-mask'; // Importe o VueTheMask
+import VueTheMask from 'vue-the-mask';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importa o CSS do Bootstrap
+import 'bootstrap'; // Importa o JavaScript do Bootstrap
+
 
 const app = createApp(App);
 

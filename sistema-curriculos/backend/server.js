@@ -60,4 +60,35 @@ app.get('/curriculos', async (req, res) => {
   }
 });
 
+app.delete('/curriculos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Curriculo.findByIdAndDelete(id);
+    res.status(200).json({ message: 'Currículo excluído com sucesso!' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao excluir currículo.' });
+  }
+});
+
+// Atualizar um currículo pelo ID
+app.put('/curriculos/:id', async (req, res) => {
+  try {
+    const { id } = req.params; // ID do currículo a ser atualizado
+    const dadosAtualizados = req.body; // Dados enviados pelo frontend
+
+    const curriculoAtualizado = await Curriculo.findByIdAndUpdate(id, dadosAtualizados, {
+      new: true, // Retorna o documento atualizado
+      runValidators: true // Valida os dados antes de salvar
+    });
+
+    if (!curriculoAtualizado) {
+      return res.status(404).json({ message: 'Currículo não encontrado.' });
+    }
+
+    res.status(200).json(curriculoAtualizado); // Retorna o currículo atualizado
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao atualizar o currículo.', error: error.message });
+  }
+});
+
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
