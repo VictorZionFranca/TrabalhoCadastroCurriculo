@@ -84,7 +84,7 @@ nav .nav-link {
 
 nav .nav-link:hover {
   color: #ffdd57;
-  scale: 1.2;
+  scale: 1.1;
   transition: 0.3s;
 }
 

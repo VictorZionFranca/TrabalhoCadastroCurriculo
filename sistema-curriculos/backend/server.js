@@ -6,12 +6,20 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 5000;
 
+// Carregar variáveis de ambiente
+require('dotenv').config();
+
 // Middlewares
 app.use(cors());
 app.use(bodyParser.json());
 
+// Rota para a raiz
+app.get('/', (req, res) => {
+  res.send('API de Currículos está funcionando!');
+});
+
 // Conexão com o MongoDB Atlas
-mongoose.connect('mongodb+srv://vzion435:%40Franca2004@sistemacurriculos.2d7mt.mongodb.net/?retryWrites=true&w=majority&appName=SistemaCurriculos')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Conectado ao MongoDB'))
   .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
 
@@ -34,9 +42,11 @@ const Curriculo = mongoose.model('Curriculo', CurriculoSchema);
 app.post('/curriculos', async (req, res) => {
   try {
     const novoCurriculo = new Curriculo(req.body);
-    await novoCurriculo.save();
-    res.status(201).json(novoCurriculo);
+    const resultado = await novoCurriculo.save();
+    console.log('Resultado do MongoDB:', resultado); // Log da resposta do banco
+    res.status(201).json(resultado);
   } catch (error) {
+    console.error('Erro ao salvar no banco:', error);
     res.status(400).json({ error: error.message });
   }
 });
