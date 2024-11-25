@@ -127,11 +127,11 @@
               <!-- Experiência -->
               <div class="form-group mb-3" v-for="(experiencia, index) in curriculoEditado.experiencia" :key="index">
                 <label for="empresa">Empresa</label>
-                <input type="text" class="form-control mb-3" v-model="experiencia.empresa" required />
+                <input type="text" class="form-control mb-3" v-model="experiencia.empresa"/>
                 <label for="cargo">Cargo</label>
-                <input type="text" class="form-control mb-3" v-model="experiencia.cargo" required />
+                <input type="text" class="form-control mb-3" v-model="experiencia.cargo"/>
                 <label for="periodo">Período</label>
-                <input type="text" class="form-control mb-3" v-model="experiencia.periodo" required />
+                <input type="text" class="form-control mb-3" v-model="experiencia.periodo"/>
               </div>
 
               <div class="form-group mb-3">
@@ -142,7 +142,7 @@
 
               <div class="form-group mb-3">
                 <label for="idiomas">Idiomas</label>
-                <textarea class="form-control" v-model="curriculoEditado.idiomas" required></textarea>
+                <textarea class="form-control" v-model="curriculoEditado.idiomas"></textarea>
               </div>
 
               <!-- Botões -->

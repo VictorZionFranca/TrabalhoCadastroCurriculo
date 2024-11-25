@@ -45,7 +45,7 @@
   
         <div class="mb-3">
           <label for="idiomas" class="form-label">Idiomas</label>
-          <input type="text" v-model="curriculo.idiomas" placeholder="Ex: Inglês, Espanhol" class="form-control" required />
+          <input type="text" v-model="curriculo.idiomas" placeholder="Ex: Inglês, Espanhol" class="form-control"/>
         </div>
   
         <div class="mb-3">
