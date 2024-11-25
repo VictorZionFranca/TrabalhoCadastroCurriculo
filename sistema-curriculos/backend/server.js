@@ -29,8 +29,8 @@ const CurriculoSchema = new mongoose.Schema({
   email: String,
   telefone: String,
   endereco: String,
-  formacao: [{ curso: String, instituicao: String, ano: String }],
-  experiencia: [{ empresa: String, cargo: String, periodo: String }],
+  formacoes: [{ curso: String, instituicao: String, ano: String }], // Mudança para 'formacoes'
+  experiencias: [{ empresa: String, cargo: String, periodo: String }], // Mudança para 'experiencias'
   habilidades: [String],
   idiomas: [String],
   objetivo: String
@@ -41,9 +41,10 @@ const Curriculo = mongoose.model('Curriculo', CurriculoSchema);
 // Rotas CRUD
 app.post('/curriculos', async (req, res) => {
   try {
+    console.log('Dados recebidos do frontend:', req.body);  // Log para verificar o que está sendo enviado
     const novoCurriculo = new Curriculo(req.body);
     const resultado = await novoCurriculo.save();
-    console.log('Resultado do MongoDB:', resultado); // Log da resposta do banco
+    console.log('Resultado do MongoDB:', resultado);
     res.status(201).json(resultado);
   } catch (error) {
     console.error('Erro ao salvar no banco:', error);
