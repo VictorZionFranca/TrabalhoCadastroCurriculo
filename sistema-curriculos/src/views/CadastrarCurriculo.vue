@@ -26,16 +26,16 @@
   
         <div class="mb-3">
           <label for="formacao" class="form-label">Formação acadêmica</label>
-          <input type="text" v-model="curriculo.formacao.curso" placeholder="Curso" class="form-control" required />
-          <input type="text" v-model="curriculo.formacao.instituicao" placeholder="Instituição" class="form-control" required />
-          <input type="number" v-model="curriculo.formacao.ano" placeholder="Ano de conclusão" class="form-control" required />
+          <input type="text" v-model="curriculo.formacao.curso" placeholder="Curso" class="form-control mb-3" required />
+          <input type="text" v-model="curriculo.formacao.instituicao" placeholder="Instituição" class="form-control mb-3" required />
+          <input type="number" v-model="curriculo.formacao.ano" placeholder="Ano de conclusão" class="form-control mb-3" required />
         </div>
   
         <div class="mb-3">
           <label for="experiencia" class="form-label">Experiência profissional</label>
-          <input type="text" v-model="curriculo.experiencia.empresa" placeholder="Empresa" class="form-control" required />
-          <input type="text" v-model="curriculo.experiencia.cargo" placeholder="Cargo" class="form-control" required />
-          <input type="text" v-model="curriculo.experiencia.periodo" placeholder="Período" class="form-control" required />
+          <input type="text" v-model="curriculo.experiencia.empresa" placeholder="Empresa" class="form-control mb-3"/>
+          <input type="text" v-model="curriculo.experiencia.cargo" placeholder="Cargo" class="form-control mb-3"/>
+          <input type="text" v-model="curriculo.experiencia.periodo" placeholder="Período" class="form-control mb-3"/>
         </div>
   
         <div class="mb-3">

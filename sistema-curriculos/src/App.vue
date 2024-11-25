@@ -1,32 +1,34 @@
 <template>
   <div id="app">
     <!-- Cabeçalho -->
-    <header>
-      <div class="logo">
-        <h1>Sistema de Currículos</h1>
+    <header class="bg-primary text-white py-3">
+      <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="h4 m-0">Sistema de Currículos</h1>
+        <nav class="d-flex gap-3">
+          <router-link to="/" class="nav-link text-white">Início</router-link>
+          <router-link to="/cadastrar" class="nav-link text-white">Cadastrar Currículo</router-link>
+          <router-link to="/curriculos" class="nav-link text-white">Ver Currículos</router-link>
+        </nav>
       </div>
-      <nav>
-        <router-link to="/" class="nav-link">Início</router-link>
-        <router-link to="/cadastrar" class="nav-link">Cadastrar Currículo</router-link>
-        <router-link to="/curriculos" class="nav-link">Ver Currículos</router-link>
-      </nav>
     </header>
 
     <!-- Conteúdo Principal -->
-    <main>
+    <main class="container my-4">
       <router-view />
     </main>
 
     <!-- Rodapé -->
-    <footer>
-      <p>© 2024 Sistema de Currículos</p>
-      <p>Entre em contato conosco:</p>
-      <div class="contact-links">
-        <a href="mailto:contato@sistemacurriculos.com">contato@sistemacurriculos.com</a>
-        <a href="tel:+5511999999999">+55 11 99999-9999</a>
-        <a href="https://www.linkedin.com/company/sistemacurriculos" target="_blank">LinkedIn</a>
-        <a href="https://twitter.com/sistemacurriculos" target="_blank">Twitter</a>
-        <a href="https://www.facebook.com/sistemacurriculos" target="_blank">Facebook</a>
+    <footer class="bg-dark text-white py-4">
+      <div class="container text-center">
+        <p class="mb-1">© 2024 Sistema de Currículos</p>
+        <p class="mb-3">Entre em contato conosco:</p>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="mailto:vzion435@gmail.com" class="text-warning"><font-awesome-icon :icon="['fas', 'envelope']" /> Email</a>
+          <a href="tel:+5511999999999" class="text-warning"><font-awesome-icon :icon="['fas', 'phone']" /> Telefone</a>
+          <a href="https://www.linkedin.com/company/sistemacurriculos" target="_blank" class="text-warning"><font-awesome-icon :icon="['fab', 'linkedin']" /> LinkedIn</a>
+          <a href="https://github.com/VictorZionFranca" target="_blank" class="text-warning"><font-awesome-icon :icon="['fab', 'github']" /> GitHub</a>
+          <a href="#" class="text-warning"><font-awesome-icon :icon="['fab', 'instagram']" /> Instagram</a>
+        </div>
       </div>
     </footer>
   </div>
@@ -39,119 +41,8 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos globais */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Cabeçalho */
-header {
-  background-color: #007bff;
-  color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header .logo h1 {
-  font-size: 1.8rem;
-}
-
-nav {
-  display: flex;
-  gap: 25px;
-}
-
-nav .nav-link {
-  font-size: 18px;
-  color: white;
-  transition: 0.3s;
-}
-
-nav .nav-link:hover {
-  color: #ffdd57;
-  scale: 1.1;
-  transition: 0.3s;
-}
-
-/* Main */
-main {
-  padding: 20px;
-  margin: 0 auto;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-  background-color: #222;
-  color: white;
-  text-align: center;
-  padding: 20px 0;
-}
-
-footer p {
-  font-size: 0.9rem;
-  margin: 5px 0;
-}
-
-footer a {
-  color: #ffdd57;
-  font-size: 1rem;
-}
-
-footer a:hover {
+/* Customizações adicionais */
+.nav-link:hover {
   text-decoration: underline;
-}
-
-footer .contact-links {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-footer .contact-links a {
-  color: #ffdd57;
-  font-size: 1rem;
-  transition: color 0.3s;
-}
-
-footer .contact-links a:hover {
-  color: #ff9e00;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  header .logo h1 {
-    margin-bottom: 10px;
-  }
-
-  nav {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  nav .nav-link {
-    font-size: 1.2rem;
-  }
 }
 </style>

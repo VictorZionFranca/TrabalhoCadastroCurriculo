@@ -74,6 +74,7 @@
 
         </div>
         <div class="text-center">
+          <hr class="mt-0">
           <button class="btn btn-warning btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#editarCurriculoModal"
             @click="prepararEdicao(curriculo)">
             Editar
@@ -222,7 +223,7 @@ export default {
 
 <style scoped>
 .curriculos-container {
-  max-width: 1000px;
+  max-width: 950px;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Arial', sans-serif;
