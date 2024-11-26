@@ -4,13 +4,16 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Carregar variáveis de ambiente
 require('dotenv').config();
 
 // Middlewares
-app.use(cors());
+const allowedOrigins = ['https://cadastro-curriculo.vercel.app']; // URL do frontend
+app.use(cors({
+  origin: allowedOrigins,
+}));
 app.use(bodyParser.json());
 
 // Rota para a raiz

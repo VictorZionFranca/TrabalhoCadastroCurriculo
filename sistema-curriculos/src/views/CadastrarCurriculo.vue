@@ -178,7 +178,10 @@ export default {
             idiomas: this.curriculo.idiomas.split(',').map((i) => i.trim()),
           };
 
-          const response = await axios.post('http://localhost:5000/curriculos', curriculoEnviar, {
+          // URL do backend no Vercel (substitua com o seu link)
+          const backendUrl = 'https://backend-curriculos-ma1koe9es-victorzionfrancas-projects.vercel.app/curriculos';
+
+          const response = await axios.post(backendUrl, curriculoEnviar, {
             headers: { 'Content-Type': 'application/json' },
           });
           console.log('Currículo cadastrado com sucesso:', response.data);

@@ -274,7 +274,7 @@ export default {
   methods: {
     async carregarCurriculos() {
       try {
-        const response = await axios.get('http://localhost:5000/curriculos');
+        const response = await axios.get('https://cadastro-curriculo.vercel.app/curriculos');
         this.curriculos = response.data; // Atualiza a lista com dados do servidor
       } catch (error) {
         console.error('Erro ao carregar os currículos:', error);
@@ -303,7 +303,7 @@ export default {
           this.curriculoEditado.idiomas = this.curriculoEditado.idiomas.split(',').map(i => i.trim());
         }
 
-        await axios.put(`http://localhost:5000/curriculos/${this.curriculoEditado._id}`, this.curriculoEditado);
+        await axios.put(`https://cadastro-curriculo.vercel.app/curriculos/${this.curriculoEditado._id}`, this.curriculoEditado);
         const index = this.curriculos.findIndex(c => c._id === this.curriculoEditado._id);
         if (index !== -1) {
           this.curriculos.splice(index, 1, { ...this.curriculoEditado });
@@ -341,7 +341,7 @@ export default {
 
         console.log("Excluindo currículo:", this.curriculoParaExcluir);
 
-        await axios.delete(`http://localhost:5000/curriculos/${this.curriculoParaExcluir._id}`);
+        await axios.delete(`https://cadastro-curriculo.vercel.app/curriculos/${this.curriculoParaExcluir._id}`);
 
         this.curriculos = this.curriculos.filter(curriculo => curriculo._id !== this.curriculoParaExcluir._id);
 
@@ -360,7 +360,7 @@ export default {
     },
     async adicionarCurriculo(curriculo) {
       try {
-        const response = await axios.post('http://localhost:5000/curriculos', curriculo);
+        const response = await axios.post('https://cadastro-curriculo.vercel.app/curriculos', curriculo);
         this.curriculos.push(response.data);
         alert('Currículo cadastrado com sucesso!');
       } catch (error) {
