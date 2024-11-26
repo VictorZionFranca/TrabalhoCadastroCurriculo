@@ -179,7 +179,7 @@ export default {
           };
 
           // URL do backend no Vercel (substitua com o seu link)
-          const backendUrl = 'https://backend-curriculos-ma1koe9es-victorzionfrancas-projects.vercel.app/curriculos';
+          const backendUrl = 'https://cadastro-curriculo.vercel.app/curriculos';
 
           const response = await axios.post(backendUrl, curriculoEnviar, {
             headers: { 'Content-Type': 'application/json' },
