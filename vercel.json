@@ -2,25 +2,22 @@
   "version": 2,
   "builds": [
     {
-      "src": "sistema-curriculos/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "sistema-curriculos/dist" 
-      }
+      "src": "backend/server.js",    
+      "use": "@vercel/node"
     },
     {
-      "src": "sistema-curriculos/backend/server.js",
-      "use": "@vercel/node"
+      "src": "dist/**",              
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "sistema-curriculos/$1"
+      "src": "/api/(.*)",            
+      "dest": "backend/server.js"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "sistema-curriculos/backend/server.js"
+      "src": "/(.*)",                
+      "dest": "/dist/$1"
     }
   ]
 }
