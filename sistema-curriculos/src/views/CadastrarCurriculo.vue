@@ -106,7 +106,10 @@ export default {
       errors: {
         telefone: '',
         email: '',
+        nome: '',
+        habilidades: '',
       },
+      sucesso: '', // Mensagem de sucesso
     };
   },
   computed: {
@@ -142,14 +145,15 @@ export default {
 
       // Validar nome
       if (!this.curriculo.nome) {
-        alert('O campo "Nome" é obrigatório.');
+        this.errors.nome = 'O campo "Nome" é obrigatório.';
         valido = false;
+      } else {
+        this.errors.nome = '';
       }
 
       // Validar email
       if (this.emailInvalido) {
         this.errors.email = 'O email é inválido.';
-        alert(this.errors.email);
         valido = false;
       } else {
         this.errors.email = '';
@@ -162,8 +166,10 @@ export default {
 
       // Validar habilidades
       if (!this.curriculo.habilidades) {
-        alert('O campo "Habilidades" é obrigatório.');
+        this.errors.habilidades = 'O campo "Habilidades" é obrigatório.';
         valido = false;
+      } else {
+        this.errors.habilidades = '';
       }
 
       return valido;
@@ -178,20 +184,23 @@ export default {
             idiomas: this.curriculo.idiomas.split(',').map((i) => i.trim()),
           };
 
-          // URL do backend no Vercel (substitua com o seu link)
-          const backendUrl = 'https://cadastro-curriculo.vercel.app/curriculos';
+          // URL do backend no Vercel (substitua com o seu link correto)
+          const backendUrl = 'https://backend-curriculos.vercel.app/curriculos';
 
           const response = await axios.post(backendUrl, curriculoEnviar, {
             headers: { 'Content-Type': 'application/json' },
           });
+
+          this.sucesso = 'Currículo cadastrado com sucesso!';
           console.log('Currículo cadastrado com sucesso:', response.data);
-          alert('Currículo cadastrado com sucesso!');
           this.resetarFormulario();
         } catch (error) {
+          this.sucesso = ''; // Limpa a mensagem de sucesso
           console.error('Erro ao enviar o formulário:', error);
           alert('Erro ao cadastrar currículo. Verifique os dados e tente novamente.');
         }
       } else {
+        this.sucesso = ''; // Limpa a mensagem de sucesso
         alert('Erro na validação. Verifique os campos e tente novamente.');
       }
     },
@@ -210,7 +219,10 @@ export default {
       this.errors = {
         telefone: '',
         email: '',
+        nome: '',
+        habilidades: '',
       };
+      this.sucesso = ''; // Limpa a mensagem de sucesso
     },
   },
 };

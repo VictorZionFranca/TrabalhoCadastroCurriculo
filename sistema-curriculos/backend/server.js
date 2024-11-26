@@ -10,10 +10,12 @@ const PORT = process.env.PORT || 5000;
 require('dotenv').config();
 
 // Middlewares
-const allowedOrigins = ['https://cadastro-curriculo.vercel.app']; // URL do frontend
+const allowedOrigins = ['https://cadastro-curriculo.vercel.app', 'https://backend-curriculos.vercel.app'];
+
 app.use(cors({
   origin: allowedOrigins,
 }));
+
 app.use(bodyParser.json());
 
 // Rota para a raiz
