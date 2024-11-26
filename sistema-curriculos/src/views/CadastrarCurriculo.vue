@@ -97,10 +97,10 @@ export default {
         email: '',
         telefone: '',
         endereco: '',
-        formacao: [{ curso: '', instituicao: '', ano: '' }], // Array para múltiplas formações
-        experiencia: [{ empresa: '', cargo: '', periodo: '' }], // Array para múltiplas experiências
-        habilidades: '',
-        idiomas: '',
+        formacao: [{ curso: '', instituicao: '', ano: '' }],
+        experiencia: [{ empresa: '', cargo: '', periodo: '' }],
+        habilidades: '', // Inicialmente string, será convertida em array
+        idiomas: '', // Inicialmente string, será convertida em array
         objetivo: '',
       },
       errors: {
@@ -171,7 +171,14 @@ export default {
     async enviarFormulario() {
       if (this.validarFormulario()) {
         try {
-          const response = await axios.post('http://localhost:5000/curriculos', this.curriculo, {
+          // Converte habilidades e idiomas para arrays antes de enviar
+          const curriculoEnviar = {
+            ...this.curriculo,
+            habilidades: this.curriculo.habilidades.split(',').map((h) => h.trim()),
+            idiomas: this.curriculo.idiomas.split(',').map((i) => i.trim()),
+          };
+
+          const response = await axios.post('http://localhost:5000/curriculos', curriculoEnviar, {
             headers: { 'Content-Type': 'application/json' },
           });
           console.log('Currículo cadastrado com sucesso:', response.data);

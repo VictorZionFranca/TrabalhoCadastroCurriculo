@@ -29,8 +29,8 @@ const CurriculoSchema = new mongoose.Schema({
   email: String,
   telefone: String,
   endereco: String,
-  formacoes: [{ curso: String, instituicao: String, ano: String }], // Mudança para 'formacoes'
-  experiencias: [{ empresa: String, cargo: String, periodo: String }], // Mudança para 'experiencias'
+  formacao: [{ curso: String, instituicao: String, ano: String }], // Mudança para 'formacoes'
+  experiencia: [{ empresa: String, cargo: String, periodo: String }], // Mudança para 'experiencias'
   habilidades: [String],
   idiomas: [String],
   objetivo: String
