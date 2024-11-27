@@ -1,16 +1,24 @@
+const express = require('express');
 const mongoose = require('mongoose');
-const { send } = require('@vercel/node');
+const cors = require('cors');
 const bodyParser = require('body-parser');
+
+const app = express();
+const PORT = process.env.PORT || 5000;
 
 // Carregar variáveis de ambiente
 require('dotenv').config();
 
-// Conectar ao MongoDB
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+
+// Conexão com o MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Conectado ao MongoDB'))
   .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
 
-// Definir modelo do currículo
+// Definição do modelo do currículo
 const CurriculoSchema = new mongoose.Schema({
   nome: String,
   email: String,
@@ -25,57 +33,60 @@ const CurriculoSchema = new mongoose.Schema({
 
 const Curriculo = mongoose.model('Curriculo', CurriculoSchema);
 
-// Função serverless que lida com todas as requisições para /api/curriculos
-module.exports = async (req, res) => {
-  // Parse body using body-parser (necessário para requisições POST, PUT, DELETE)
-  bodyParser.json()(req, res, async () => {
-    if (req.method === 'GET' && req.url === '/api/curriculos') {
-      // Rota GET para listar os currículos
-      try {
-        const curriculos = await Curriculo.find();
-        return send(res, 200, curriculos);
-      } catch (error) {
-        return send(res, 500, { error: error.message });
-      }
-    } else if (req.method === 'POST' && req.url === '/api/curriculos') {
-      // Rota POST para criar um novo currículo
-      try {
-        const novoCurriculo = new Curriculo(req.body);
-        const resultado = await novoCurriculo.save();
-        return send(res, 201, resultado);
-      } catch (error) {
-        return send(res, 400, { error: error.message });
-      }
-    } else if (req.method === 'DELETE' && req.url.startsWith('/api/curriculos/')) {
-      // Rota DELETE para excluir um currículo
-      const { id } = req.url.split('/').pop();
-      try {
-        await Curriculo.findByIdAndDelete(id);
-        return send(res, 200, { message: 'Currículo excluído com sucesso!' });
-      } catch (error) {
-        return send(res, 500, { error: 'Erro ao excluir currículo.' });
-      }
-    } else if (req.method === 'PUT' && req.url.startsWith('/api/curriculos/')) {
-      // Rota PUT para atualizar um currículo
-      const { id } = req.url.split('/').pop();
-      const dadosAtualizados = req.body;
-      try {
-        const curriculoAtualizado = await Curriculo.findByIdAndUpdate(id, dadosAtualizados, {
-          new: true,
-          runValidators: true
-        });
+// Rotas CRUD
+app.get('/', (req, res) => {
+  res.send('API de Currículos funcionando!');
+});
 
-        if (!curriculoAtualizado) {
-          return send(res, 404, { message: 'Currículo não encontrado.' });
-        }
+app.get('/curriculos', async (req, res) => {
+  try {
+    const curriculos = await Curriculo.find();
+    res.status(200).json(curriculos);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
-        return send(res, 200, curriculoAtualizado);
-      } catch (error) {
-        return send(res, 500, { message: 'Erro ao atualizar o currículo.', error: error.message });
-      }
-    } else {
-      // Caso a rota não seja encontrada
-      return send(res, 404, { message: 'Rota não encontrada' });
+app.post('/curriculos', async (req, res) => {
+  try {
+    const novoCurriculo = new Curriculo(req.body);
+    const resultado = await novoCurriculo.save();
+    res.status(201).json(resultado);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+app.delete('/curriculos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Curriculo.findByIdAndDelete(id);
+    res.status(200).json({ message: 'Currículo excluído com sucesso!' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao excluir currículo.' });
+  }
+});
+
+app.put('/curriculos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const dadosAtualizados = req.body;
+
+    const curriculoAtualizado = await Curriculo.findByIdAndUpdate(id, dadosAtualizados, {
+      new: true,
+      runValidators: true
+    });
+
+    if (!curriculoAtualizado) {
+      return res.status(404).json({ message: 'Currículo não encontrado.' });
     }
-  });
-};
+
+    res.status(200).json(curriculoAtualizado);
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao atualizar o currículo.', error: error.message });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});

@@ -184,8 +184,8 @@ export default {
             idiomas: this.curriculo.idiomas.split(',').map((i) => i.trim()),
           };
 
-          // URL do backend no Vercel (substitua com o seu link correto)
-          const backendUrl = 'https://backend-curriculos.vercel.app/curriculos';
+          // URL do backend local
+          const backendUrl = 'http://localhost:5000/curriculos'; // Atualize para o endereço local
 
           const response = await axios.post(backendUrl, curriculoEnviar, {
             headers: { 'Content-Type': 'application/json' },
